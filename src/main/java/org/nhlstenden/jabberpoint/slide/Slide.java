@@ -29,7 +29,6 @@ public class Slide {
   protected String title;
   protected Vector<SlideItem> slideItems;
 
-
   public Slide(String title) {
     this.title = title;
     this.slideItems = new Vector<>();

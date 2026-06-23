@@ -27,8 +27,7 @@ class SaveFileCommandTest {
     Presentation presentation = new Presentation();
     JFrame frame = new JFrame();
     presentation.setShowView(new SlideViewerComponent(presentation, frame));
-    assertDoesNotThrow(
-        () -> Accessor.getDemoAccessor().loadFile(presentation, ""));
+    assertDoesNotThrow(() -> Accessor.getDemoAccessor().loadFile(presentation, ""));
 
     SaveFileCommand command = new SaveFileCommand(presentation);
     assertDoesNotThrow(command::execute);

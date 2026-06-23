@@ -71,6 +71,14 @@ public class Style {
   }
 
   public String toString() {
-    return "[" + this.indent + "," + this.color + "; " + this.fontSize + " on " + this.leading + "]";
+    return "["
+        + this.indent
+        + ","
+        + this.color
+        + "; "
+        + this.fontSize
+        + " on "
+        + this.leading
+        + "]";
   }
 }
