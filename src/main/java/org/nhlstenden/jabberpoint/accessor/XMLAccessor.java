@@ -34,6 +34,7 @@ public class XMLAccessor extends Accessor {
 
   /** names of xml tags or attributes */
   protected static final String SHOWTITLE = "showtitle";
+
   protected static final String SLIDETITLE = "title";
   protected static final String SLIDE = "slide";
   protected static final String ITEM = "item";
@@ -44,6 +45,7 @@ public class XMLAccessor extends Accessor {
 
   /** text of messages */
   protected static final String PCE = "Parser Configuration Exception";
+
   protected static final String UNKNOWNTYPE = "Unknown Element type";
   protected static final String NFE = "Number Format Exception";
 

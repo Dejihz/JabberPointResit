@@ -29,7 +29,8 @@ class PresentationTest {
     presentation.append(slide);
     presentation.setSlideNumber(0);
     assertEquals(0, presentation.getSlideNumber(), "Slide number should be 0");
-    assertEquals(slide, presentation.getCurrentSlide(), "Current slide should be the appended slide");
+    assertEquals(
+        slide, presentation.getCurrentSlide(), "Current slide should be the appended slide");
   }
 
   @Test
