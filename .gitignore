@@ -1,3 +1,6 @@
+# Maven
+target/
+
 # Compiled class file
 *.class
 
@@ -17,6 +20,8 @@
 *.ear
 *.zip
 *.tar.gz
+*.mvn
+*.vscode
 *.rar
 *.target 
 
