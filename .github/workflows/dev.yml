@@ -23,7 +23,7 @@ jobs:
           cache: maven
 
       - name: Maven compile
-        run: mvn compile
+        run: ./mvnw compile
 
       - name: Format and commit
         uses: axel-op/googlejavaformat-action@v3
