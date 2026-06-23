@@ -1,4 +1,4 @@
-package org.nhlstenden.jabberpoint;
+package org.nhlstenden.jabberpoint.accessor;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -8,6 +8,7 @@ import java.util.Vector;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import org.nhlstenden.jabberpoint.Presentation;
 import org.nhlstenden.jabberpoint.slide.Slide;
 import org.nhlstenden.jabberpoint.slide.item.BitmapItem;
 import org.nhlstenden.jabberpoint.slide.item.SlideItem;
@@ -20,8 +21,6 @@ import org.xml.sax.SAXException;
 
 /** Reads and writes XML presentation files. */
 public class XMLAccessor extends Accessor {
-
-  protected static final String DEFAULT_API_TO_USE = "dom";
 
   protected static final String SHOWTITLE = "showtitle";
   protected static final String SLIDETITLE = "title";

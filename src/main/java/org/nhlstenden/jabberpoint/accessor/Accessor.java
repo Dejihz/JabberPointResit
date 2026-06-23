@@ -1,11 +1,10 @@
-package org.nhlstenden.jabberpoint;
+package org.nhlstenden.jabberpoint.accessor;
 
 import java.io.IOException;
+import org.nhlstenden.jabberpoint.Presentation;
 
 /** Reads and writes presentation data. */
 public abstract class Accessor {
-  public static final String DEMO_NAME = "Demonstration presentation";
-  public static final String DEFAULT_EXTENSION = ".xml";
 
   public static Accessor getDemoAccessor() {
     return new DemoPresentation();

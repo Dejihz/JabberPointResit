@@ -25,6 +25,10 @@ public class Presentation {
     return this.showList.size();
   }
 
+  public SlideViewerComponent getParent() {
+    return this.slideViewComponent;
+  }
+
   public String getTitle() {
     return this.showTitle;
   }
@@ -42,25 +46,28 @@ public class Presentation {
   }
 
   public void setSlideNumber(int number) {
-    this.currentSlideNumber = number;
-    if (this.slideViewComponent != null) {
-      this.slideViewComponent.update(this, this.getCurrentSlide());
+    if (number < 0 || number > (this.showList.size() - 1)) {
+      return;
     }
+
+    this.currentSlideNumber = number;
+
+    if (this.slideViewComponent == null) {
+      return;
+    }
+
+    this.slideViewComponent.update(this, this.getCurrentSlide());
   }
 
   public void prevSlide() {
-    if (this.currentSlideNumber > 0) {
-      this.setSlideNumber(this.currentSlideNumber - 1);
-    }
+    this.setSlideNumber(this.currentSlideNumber - 1);
   }
 
   public void nextSlide() {
-    if (this.currentSlideNumber < (this.showList.size() - 1)) {
-      this.setSlideNumber(this.currentSlideNumber + 1);
-    }
+    this.setSlideNumber(this.currentSlideNumber + 1);
   }
 
-  void clear() {
+  public void clear() {
     this.showList = new ArrayList<>();
     this.setSlideNumber(-1);
   }
@@ -78,9 +85,5 @@ public class Presentation {
 
   public Slide getCurrentSlide() {
     return this.getSlide(this.currentSlideNumber);
-  }
-
-  public void exit(int n) {
-    System.exit(n);
   }
 }

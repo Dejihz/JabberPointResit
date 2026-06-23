@@ -2,6 +2,8 @@ package org.nhlstenden.jabberpoint;
 
 import java.io.IOException;
 import javax.swing.JOptionPane;
+import org.nhlstenden.jabberpoint.accessor.Accessor;
+import org.nhlstenden.jabberpoint.accessor.XMLAccessor;
 import org.nhlstenden.jabberpoint.slide.SlideViewerFrame;
 import org.nhlstenden.jabberpoint.slide.Style;
 import org.nhlstenden.jabberpoint.utils.Constants;

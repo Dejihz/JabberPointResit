@@ -5,11 +5,12 @@ import java.awt.Menu;
 import java.awt.MenuBar;
 import java.awt.MenuItem;
 import java.awt.MenuShortcut;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
-import javax.swing.JOptionPane;
-import org.nhlstenden.jabberpoint.utils.Constants;
+import org.nhlstenden.jabberpoint.command.GoToCommand;
+import org.nhlstenden.jabberpoint.command.NewFileCommand;
+import org.nhlstenden.jabberpoint.command.OpenFileCommand;
+import org.nhlstenden.jabberpoint.command.QuitCommand;
+import org.nhlstenden.jabberpoint.command.SaveFileCommand;
 
 /** Controller for the menu. */
 public class MenuController extends MenuBar {
@@ -19,112 +20,44 @@ public class MenuController extends MenuBar {
 
   private static final long serialVersionUID = 227L;
 
-  protected static final String ABOUT = "About";
-  protected static final String FILE = "File";
-  protected static final String EXIT = "Exit";
-  protected static final String GOTO = "Go to";
-  protected static final String HELP = "Help";
-  protected static final String NEW = "New";
-  protected static final String NEXT = "Next";
-  protected static final String OPEN = "Open";
-  protected static final String PAGENR = "Page number?";
-  protected static final String PREV = "Prev";
-  protected static final String SAVE = "Save";
-  protected static final String VIEW = "View";
-
-  public MenuController(Frame frame, Presentation pres) {
+  public MenuController(Frame frame, Presentation presentation) {
     this.parent = frame;
-    this.presentation = pres;
-    MenuItem menuItem;
-    Menu fileMenu = new Menu(FILE);
-    fileMenu.add(menuItem = this.mkMenuItem(OPEN));
-    menuItem.addActionListener(
-        new ActionListener() {
-          public void actionPerformed(ActionEvent actionEvent) {
-            presentation.clear();
-            Accessor xmlAccessor = new XMLAccessor();
-            try {
-              xmlAccessor.loadFile(presentation, Constants.TEST_FILE);
-              presentation.setSlideNumber(0);
-            } catch (IOException exc) {
-              JOptionPane.showMessageDialog(
-                  parent, Constants.IO_ERR + exc, Constants.LOAD_ERR, JOptionPane.ERROR_MESSAGE);
-            }
-            parent.repaint();
-          }
-        });
-    fileMenu.add(menuItem = this.mkMenuItem(NEW));
-    menuItem.addActionListener(
-        new ActionListener() {
-          public void actionPerformed(ActionEvent actionEvent) {
-            presentation.clear();
-            parent.repaint();
-          }
-        });
-    fileMenu.add(menuItem = this.mkMenuItem(SAVE));
-    menuItem.addActionListener(
-        new ActionListener() {
-          public void actionPerformed(ActionEvent e) {
-            Accessor xmlAccessor = new XMLAccessor();
-            try {
-              xmlAccessor.saveFile(presentation, Constants.DEFAULT_SAVE_PATH);
-            } catch (IOException exc) {
-              JOptionPane.showMessageDialog(
-                  parent, Constants.IO_ERR + exc, Constants.SAVE_ERR, JOptionPane.ERROR_MESSAGE);
-            }
-          }
-        });
+    this.presentation = presentation;
+
+    QuitCommand quitCommand = new QuitCommand(this.presentation);
+    GoToCommand goToCommand = new GoToCommand(this.presentation);
+    OpenFileCommand openFileCommand = new OpenFileCommand(this.presentation);
+    SaveFileCommand saveFileCommand = new SaveFileCommand(this.presentation);
+    NewFileCommand newFileCommand = new NewFileCommand(this.presentation);
+
+    Menu fileMenu = new Menu("File");
+    fileMenu.add(this.createMenuItem("Open", e -> openFileCommand.execute(), 'O'));
+    fileMenu.add(this.createMenuItem("New", e -> newFileCommand.execute(), 'N'));
+    fileMenu.add(this.createMenuItem("Save", e -> saveFileCommand.execute(), 'S'));
     fileMenu.addSeparator();
-    fileMenu.add(menuItem = this.mkMenuItem(EXIT));
-    menuItem.addActionListener(
-        new ActionListener() {
-          public void actionPerformed(ActionEvent actionEvent) {
-            presentation.exit(0);
-          }
-        });
+    fileMenu.add(this.createMenuItem("Exit", e -> quitCommand.execute()));
     this.add(fileMenu);
-    Menu viewMenu = new Menu(VIEW);
-    viewMenu.add(menuItem = this.mkMenuItem(NEXT));
-    menuItem.addActionListener(
-        new ActionListener() {
-          public void actionPerformed(ActionEvent actionEvent) {
-            presentation.nextSlide();
-          }
-        });
-    viewMenu.add(menuItem = this.mkMenuItem(PREV));
-    menuItem.addActionListener(
-        new ActionListener() {
-          public void actionPerformed(ActionEvent actionEvent) {
-            presentation.prevSlide();
-          }
-        });
-    viewMenu.add(menuItem = this.mkMenuItem(GOTO));
-    menuItem.addActionListener(
-        new ActionListener() {
-          public void actionPerformed(ActionEvent actionEvent) {
-            String pageNumberStr = JOptionPane.showInputDialog((Object) PAGENR);
-            try {
-              int pageNumber = Integer.parseInt(pageNumberStr);
-              presentation.setSlideNumber(pageNumber - 1);
-            } catch (NumberFormatException ex) {
-              JOptionPane.showMessageDialog(
-                  parent, Constants.INT_ERR, Constants.JAB_ERR, JOptionPane.ERROR_MESSAGE);
-            }
-          }
-        });
+
+    Menu viewMenu = new Menu("View");
+    viewMenu.add(this.createMenuItem("Next slide", e -> this.presentation.nextSlide()));
+    viewMenu.add(this.createMenuItem("Previous slide", e -> this.presentation.prevSlide()));
+    viewMenu.add(this.createMenuItem("Go to...", e -> goToCommand.execute(), 'G'));
     this.add(viewMenu);
-    Menu helpMenu = new Menu(HELP);
-    helpMenu.add(menuItem = this.mkMenuItem(ABOUT));
-    menuItem.addActionListener(
-        new ActionListener() {
-          public void actionPerformed(ActionEvent actionEvent) {
-            AboutBox.show(parent);
-          }
-        });
+
+    Menu helpMenu = new Menu("Help");
+    helpMenu.add(this.createMenuItem("About", e -> AboutBox.show(this.parent), 'A'));
     this.setHelpMenu(helpMenu);
   }
 
-  public MenuItem mkMenuItem(String name) {
-    return new MenuItem(name, new MenuShortcut(name.charAt(0)));
+  public MenuItem createMenuItem(String name, ActionListener action) {
+    MenuItem menuItem = new MenuItem(name);
+    menuItem.addActionListener(action);
+    return menuItem;
+  }
+
+  public MenuItem createMenuItem(String name, ActionListener action, char shortcutKey) {
+    MenuItem menuItem = new MenuItem(name, new MenuShortcut(shortcutKey));
+    menuItem.addActionListener(action);
+    return menuItem;
   }
 }

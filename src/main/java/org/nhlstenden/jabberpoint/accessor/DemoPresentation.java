@@ -1,5 +1,6 @@
-package org.nhlstenden.jabberpoint;
+package org.nhlstenden.jabberpoint.accessor;
 
+import org.nhlstenden.jabberpoint.Presentation;
 import org.nhlstenden.jabberpoint.slide.Slide;
 
 /** Built-in demo presentation. */

@@ -23,10 +23,11 @@ jobs:
           cache: maven
 
       - name: Maven compile
-        run: mvn compile
+        run: ./mvnw -B compile
 
       - name: Format and commit
-        uses: axel-op/googlejavaformat-action@v3
+        uses: axel-op/googlejavaformat-action@v4
         with:
+          release-name: "v1.17.0"
           args: "--skip-sorting-imports --replace"
           github-token: ${{ secrets.GITHUB_TOKEN }}
