@@ -9,7 +9,19 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import org.nhlstenden.jabberpoint.slide.Style;
 
-/** Bitmap item that draws itself. */
+/**
+ * De klasse voor een Bitmap item
+ *
+ * <p>Bitmap items have the responsibility to draw themselves.
+ *
+ * @author Ian F. Darwin, ian@darwinsys.com, Gert Florijn, Sylvia Stuurman
+ * @version 1.1 2002/12/17 Gert Florijn
+ * @version 1.2 2003/11/19 Sylvia Stuurman
+ * @version 1.3 2004/08/17 Sylvia Stuurman
+ * @version 1.4 2007/07/16 Sylvia Stuurman
+ * @version 1.5 2010/03/03 Sylvia Stuurman
+ * @version 1.6 2014/05/16 Sylvia Stuurman
+ */
 public class BitmapItem extends SlideItem {
 
   private final String imageName;
@@ -50,6 +62,7 @@ public class BitmapItem extends SlideItem {
     return this.bufferedImage;
   }
 
+  /** Give the bounding box of the image. */
   public Rectangle getBoundingBox(
       Graphics graphics, ImageObserver observer, float scale, Style style) {
     if (this.bufferedImage == null) {
@@ -66,6 +79,7 @@ public class BitmapItem extends SlideItem {
     return new Rectangle(xCoordinate, yCoordinate, width, height);
   }
 
+  /** Draw the image. */
   public void draw(
       int xCoordinate,
       int yCoordinate,

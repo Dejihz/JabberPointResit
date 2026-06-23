@@ -3,7 +3,20 @@ package org.nhlstenden.jabberpoint.slide;
 import java.awt.Color;
 import java.awt.Font;
 
-/** Style for indent, color, font and leading. */
+/**
+ * Style is for Indent, Color, Font and Leading.
+ *
+ * <p>Direct relation between style-number and item-level: in Slide style if fetched for an item
+ * with style-number as item-level.
+ *
+ * @author Ian F. Darwin, ian@darwinsys.com, Gert Florijn, Sylvia Stuurman
+ * @version 1.1 2002/12/17 Gert Florijn
+ * @version 1.2 2003/11/19 Sylvia Stuurman
+ * @version 1.3 2004/08/17 Sylvia Stuurman
+ * @version 1.4 2007/07/16 Sylvia Stuurman
+ * @version 1.5 2010/03/03 Sylvia Stuurman
+ * @version 1.6 2014/05/16 Sylvia Stuurman
+ */
 public class Style {
   private static Style[] styles;
 
@@ -23,6 +36,7 @@ public class Style {
     this.leading = leading;
   }
 
+  /** Creates the built-in styles. */
   public static void createStyles() {
     styles = new Style[5];
     styles[0] = new Style(0, Color.red, 48, 20);
@@ -32,6 +46,7 @@ public class Style {
     styles[4] = new Style(90, Color.black, 24, 10);
   }
 
+  /** Returns the style for the given level. */
   public static Style getStyle(int level) {
     if (level >= styles.length) {
       level = styles.length - 1;

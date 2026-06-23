@@ -35,23 +35,28 @@ public class Slide {
     this.slideItems = new Vector<>();
   }
 
+  /** Add a slide item. */
   public void addSlideItem(SlideItem slideItem) {
     this.slideItems.addElement(slideItem);
   }
 
+  /** Give the title of the slide. */
   public String getTitle() {
     return this.title;
   }
 
+  /** Change the title of the slide. */
   public void setTitle(String title) {
     this.title = title;
   }
 
+  /** Create a text item and add it to the slide. */
   public void addTextItem(int level, String message) {
     SlideItemFactory textItemFactory = new TextItemFactory();
     this.addSlideItem(textItemFactory.createSlideItem(level, message));
   }
 
+  /** Create a bitmap item and add it to the slide. */
   public void addBitmapItem(int level, String imageName) {
     SlideItemFactory bitmapItemFactory = new BitMapItemFactory();
     this.addSlideItem(bitmapItemFactory.createSlideItem(level, imageName));
@@ -61,14 +66,17 @@ public class Slide {
     return this.slideItems.elementAt(position);
   }
 
+  /** Returns all slide items in a Vector. */
   public Vector<SlideItem> getSlideItems() {
     return this.slideItems;
   }
 
+  /** Give the size of the slide. */
   public int getSizeOfSlideItems() {
     return this.slideItems.size();
   }
 
+  /** Draw the slide. */
   public void draw(Graphics graphics, Rectangle area, ImageObserver view) {
     float scale = this.getScale(area);
     int xCoordinate = area.x;
@@ -110,6 +118,7 @@ public class Slide {
     return slideItem.getLevel();
   }
 
+  /** Give the scale for drawing. */
   private float getScale(Rectangle area) {
     return Math.min(
         ((float) area.width) / ((float) WIDTH), ((float) area.height) / ((float) HEIGHT));

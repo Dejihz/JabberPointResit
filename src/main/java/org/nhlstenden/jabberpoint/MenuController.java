@@ -12,7 +12,17 @@ import org.nhlstenden.jabberpoint.command.OpenFileCommand;
 import org.nhlstenden.jabberpoint.command.QuitCommand;
 import org.nhlstenden.jabberpoint.command.SaveFileCommand;
 
-/** Controller for the menu. */
+/**
+ * This is the menu controller
+ *
+ * @author Ian F. Darwin, ian@darwinsys.com, Gert Florijn, Sylvia Stuurman
+ * @version 1.1 2002/12/17 Gert Florijn
+ * @version 1.2 2003/11/19 Sylvia Stuurman
+ * @version 1.3 2004/08/17 Sylvia Stuurman
+ * @version 1.4 2007/07/16 Sylvia Stuurman
+ * @version 1.5 2010/03/03 Sylvia Stuurman
+ * @version 1.6 2014/05/16 Sylvia Stuurman
+ */
 public class MenuController extends MenuBar {
 
   private final Frame parent;
@@ -49,12 +59,14 @@ public class MenuController extends MenuBar {
     this.setHelpMenu(helpMenu);
   }
 
+  /** Create a menu item. */
   public MenuItem createMenuItem(String name, ActionListener action) {
     MenuItem menuItem = new MenuItem(name);
     menuItem.addActionListener(action);
     return menuItem;
   }
 
+  /** Create a menu item with a keyboard shortcut. */
   public MenuItem createMenuItem(String name, ActionListener action, char shortcutKey) {
     MenuItem menuItem = new MenuItem(name, new MenuShortcut(shortcutKey));
     menuItem.addActionListener(action);

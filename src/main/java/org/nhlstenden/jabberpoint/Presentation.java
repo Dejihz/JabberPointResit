@@ -4,7 +4,19 @@ import java.util.ArrayList;
 import org.nhlstenden.jabberpoint.slide.Slide;
 import org.nhlstenden.jabberpoint.slide.SlideViewerComponent;
 
-/** Maintains the slides in the presentation. */
+/**
+ * This is the Presentation class that maintains the slides in the presentation.
+ *
+ * <p>There is only instance of this class.
+ *
+ * @author Ian F. Darwin, ian@darwinsys.com, Gert Florijn, Sylvia Stuurman
+ * @version 1.1 2002/12/17 Gert Florijn
+ * @version 1.2 2003/11/19 Sylvia Stuurman
+ * @version 1.3 2004/08/17 Sylvia Stuurman
+ * @version 1.4 2007/07/16 Sylvia Stuurman
+ * @version 1.5 2010/03/03 Sylvia Stuurman
+ * @version 1.6 2014/05/16 Sylvia Stuurman
+ */
 public class Presentation {
   private String showTitle;
   private ArrayList<Slide> showList;
@@ -41,10 +53,12 @@ public class Presentation {
     this.slideViewComponent = slideViewerComponent;
   }
 
+  /** Give the number of the current slide. */
   public int getSlideNumber() {
     return this.currentSlideNumber;
   }
 
+  /** Change the current slide number and signal it to the window. */
   public void setSlideNumber(int number) {
     if (number < 0 || number > (this.showList.size() - 1)) {
       return;
@@ -59,23 +73,28 @@ public class Presentation {
     this.slideViewComponent.update(this, this.getCurrentSlide());
   }
 
+  /** Go to the previous slide unless you are at the beginning of the presentation. */
   public void prevSlide() {
     this.setSlideNumber(this.currentSlideNumber - 1);
   }
 
+  /** Go to the next slide unless you are at the end of the presentation. */
   public void nextSlide() {
     this.setSlideNumber(this.currentSlideNumber + 1);
   }
 
+  /** Delete the presentation to be ready for the next one. */
   public void clear() {
     this.showList = new ArrayList<>();
     this.setSlideNumber(-1);
   }
 
+  /** Add a slide to the presentation. */
   public void append(Slide slide) {
     this.showList.add(slide);
   }
 
+  /** Get a slide with a certain slide number. */
   public Slide getSlide(int number) {
     if (number < 0 || number >= this.getSize()) {
       return null;
@@ -83,6 +102,7 @@ public class Presentation {
     return this.showList.get(number);
   }
 
+  /** Give the current slide. */
   public Slide getCurrentSlide() {
     return this.getSlide(this.currentSlideNumber);
   }
