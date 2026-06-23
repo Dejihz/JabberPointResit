@@ -18,12 +18,28 @@ public class BitmapItem extends SlideItem {
   public BitmapItem(int level, String imageName) {
     super(level);
     this.imageName = imageName;
+    this.bufferedImage = this.loadImage(imageName);
+  }
 
+  private BufferedImage loadImage(String name) {
     try {
-      this.bufferedImage = ImageIO.read(new File(imageName));
+      BufferedImage image = ImageIO.read(new File(name));
+      if (image != null) {
+        return image;
+      }
+
+      var stream = BitmapItem.class.getClassLoader().getResourceAsStream(name);
+      if (stream != null) {
+        try (var input = stream) {
+          return ImageIO.read(input);
+        }
+      }
     } catch (IOException e) {
-      System.err.println("File " + imageName + " not found");
+      System.err.println("File " + name + " not found");
     }
+
+    System.err.println("File " + name + " not found");
+    return null;
   }
 
   public String getImageName() {
@@ -36,6 +52,10 @@ public class BitmapItem extends SlideItem {
 
   public Rectangle getBoundingBox(
       Graphics graphics, ImageObserver observer, float scale, Style style) {
+    if (this.bufferedImage == null) {
+      return new Rectangle((int) (style.getIndent() * scale), 0, 0, 0);
+    }
+
     int xCoordinate = (int) (style.getIndent() * scale);
     int yCoordinate = 0;
     int width = (int) (this.getBufferedImage().getWidth(observer) * scale);
@@ -53,6 +73,10 @@ public class BitmapItem extends SlideItem {
       Graphics graphics,
       Style style,
       ImageObserver observer) {
+    if (this.bufferedImage == null) {
+      return;
+    }
+
     int x = xCoordinate + (int) (style.getIndent() * scale);
     int y = yCoordinate + (int) (style.getLeading() * scale);
     int width = (int) (this.getBufferedImage().getWidth(observer) * scale);
