@@ -20,7 +20,6 @@ target/
 *.ear
 *.zip
 *.tar.gz
-*.mvn
 *.vscode
 *.rar
 *.target 
@@ -30,7 +29,6 @@ hs_err_pid*
 replay_pid*
 
 # Maven
-.mvn/
 target/
 
 # IDE
